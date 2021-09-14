@@ -1,0 +1,21 @@
+#예제3-1(거스름돈)
+#거스름돈 N, 가능한 거스름돈 10, 50, 100, 500  (단, N은 항상 10의 배수이다.)
+#출력 거슬러줄 최소의 동전 개수
+
+N = int(input())
+
+coin = [500, 100, 50, 10]
+cnt = 0
+
+for i in coin:
+    if N >= i:
+        cnt += N//i
+        N -= i *(N//i)
+
+
+        if N == 0:
+            print(cnt, "개")
+            break
+
+    else:
+        pass 
