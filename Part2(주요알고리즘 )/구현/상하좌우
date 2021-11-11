@@ -1,0 +1,43 @@
+#4-1 상하좌우
+# 나의 코드
+import sys
+
+cnt = int(sys.stdin.readline())
+plan = list(map(str,sys.stdin.readline().split()))
+site_x, site_y = 1, 1
+
+x = [0, 0, -1, 1]
+y = [-1, 1, 0, 0]
+
+move = ["L", "R", "U", "D"]
+
+for i in plan:
+    if i in move:
+        if site_x + x[move.index(i)] >= 1 and site_y + site_y + y[move.index(i)] >= 1:
+            site_x += x[move.index(i)]
+            site_y += y[move.index(i)]
+            print(site_x, site_y)
+        else:
+            continue
+print(site_x, site_y)
+
+#교재 코드
+n = int(input())
+x,y = 1, 1
+plans = input().split()
+
+dx =[0, 0 ,-1, 1]
+dy = [-1, 1, 0, 0]
+move_types = ["L", "R", "U", "D"]
+
+for plan in plans:
+    for i in range(len(move_types)):
+        if plan == move_types[i]:
+            nx = x + dx[i]
+            ny = y + dy[i]
+
+    if nx < 1 or ny < 1 or nx > n or ny > n:
+        continue
+    x,y = nx, ny
+
+print(x, y)
