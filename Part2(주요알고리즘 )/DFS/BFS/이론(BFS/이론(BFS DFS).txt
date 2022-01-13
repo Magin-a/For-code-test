@@ -1,0 +1,126 @@
+#DFS/BFS
+1) 탐색 : 많은 양의 데이터중 원하는 데이터를 찾는 과정 ex)그래프, 트리 등등
+
+2) 자료구조 : 데이터를 표현하고 관리하는 처리하기 위한 과정 ex) 스택과 큐 
+
+
+*) 재귀함수 
+자기 자신을 다시 호출 하는 함수
+
+ex) 피보나치 수열, 팩토리얼
+def fibo(n):
+    if n == 0:
+        return 1
+    if n ==1:
+        return 1
+    return fibo(n-1) + fibo(n-2)
+
+def factorial(n):
+
+    if n <=1:
+        return 1
+
+    return n*factorial(n-1)
+
+def Nfactorial(n): #비재귀함수
+    result = 1
+
+    for i in range(2,n+1):
+        result *= i
+    return result
+
+
+주의사항) 종료 조건을 확실히 정해야 한다. 잘못하면 무한루프로 구현되기 떄문이다.
+우리가 수학에서 사용하던 점화식을 코드로 구현한 것
+DP(다이나믹 프로그래밍)에서 추가 설명이 나올 예정
+
+#DFS : 깊이 우선 탐색 그래프에서 깊은 부분을 우선적으로 탐색하는 알고리즘
+
+1)인접 행렬: 2차원 배열(2차원 리스트)로 그래프의 연관 관계 표현
+EX) 
+INF = 10e9
+
+graph = [[0, 7, 5], [7, 0, INF], [5, INF, 0]]
+
+
+2)인접 리스트 : 리스트로 그래프의 연결 관계 표현
+ex)
+graph = [[] for _ in range(3)]
+
+#노드  0에 연결된 노드정보 추가(노드, 값)
+graph[0].append(1, 7)
+graph[0].append(2, 5)
+
+#노트 1에 연결된 노드정보 추가(노드, 값)
+graph[1].append(0, 7)
+
+
+***) 두가지 방법 비교
+
+-메모리와 속도
+    메모리 면에서는 모든 정보를 담고 있는 인접 행렬부분이 낭비 될 수 있고 인접 리스트부분은 필요한 정보만을 담고 있으니
+    공간의 낭비가 적은 편이다. 하지만 두 노드의 연결 정보를 얻는데있어 인접 리스트는 느린 편이다. 
+
+예시)
+노드1과 노드7이 연결되어 있는 상황
+인접행렬 => graph[1][7]만 확인 하면 끝
+인접 리스트 => 앞에 있는 값을 확인하며 찾아야 한다.
+
+결론) 
+특정노드와 연결된 모든 인접 노드를 순회해야하는 경우, 인접리스트 방식이 메모리 공간 낭비가 적다.
+
+
+def dfs(graph, v, visited):
+    #현재노드 방문처리
+    visited[v] = True
+    print(v, end=' ')
+
+    #현재 노드와 연결된 다른 노드를 재귀적으로 방문
+    for i in graph[v]:
+        if not visited[v]:
+            dfs(graph, i, visited)
+
+graph = [[],[2, 3, 8], [1, 7], [1, 4, 5], [3, 5], [3, 4], [7], [2,, 6, 8], [1, 7]]
+
+visited =[False]*9
+def(graph, 1, visited)
+
+
+
+
+
+
+#BFS: 너비 우선 탐색
+=> 가까운 노드부터 탐색하는 알고리즘 (DFS와 반대되는 특징)
+
+BFS는 큐 라죠구조에 기초하여 구현하면 간단하다.
+deque 라이브러리를 사용하면 O(N)의 시간이 소요 된다. 일반적인 경우  DFS보다 속도가 빠른 편이라는 점 기억하자.
+
+import collections import deque
+
+#bfs 
+def bfs(graph, start, visited):
+    
+    queue =deque([start])
+    #현재 노드를 방문 처리
+    visited[start] = True
+    #큐가 빌 때까지 반복
+    while queue:
+        #큐에서 앞에 값 pop
+        v = queue.popleft()
+        print(v , end='')
+        #해당 원소와 연결된, 아직 방문하지 않은 원소들을 큐에 삽입
+        for i in graph[v]:
+            if not visited[i]:
+                queue.append(i)
+                visited[i] = True
+graph = [[],[2, 3, 8], [1, 7], [1, 4, 5], [3, 5], [3, 4], [7], [2,, 6, 8], [1, 7]]
+
+visited =[False]*9
+bfs(graph, 1, visited)
+
+DFS 
+동작 원리 => 스택, 구현방법 => 재귀
+
+BFS
+동작우너리 => 큐, 구현 방법-=> 큐 자료 구조
