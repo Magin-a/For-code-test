@@ -1,0 +1,32 @@
+#음료수 얼려 먹기
+import sys
+input = sys.stdin.readline
+n, m = 4, 5
+
+graph = [list(input().rstrip()) for _ in range(4)]
+move_x = [0, 1, 0, -1]
+move_y = [1, 0, -1, 0]
+
+def dfs(x, y):
+    
+    if x <= -1 or x >= n or y <= -1 or y >= m:
+        return False
+
+    if graph[x][y] == '0':
+        graph[x][y] = '1'
+
+        for i in range(4):
+            dfs(x+move_x[i], y+move_y[i])
+        return True
+    return False
+
+
+
+result = 0
+for a in range(4):
+    for b in range(5):
+        if dfs(a, b) == True:
+            result += 1
+
+print(result)
+
