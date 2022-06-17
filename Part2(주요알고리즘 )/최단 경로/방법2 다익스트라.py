@@ -3,7 +3,7 @@
 
 #특징 
 # - 연결된 노드중에 가장 작은 짧은 거리 노드를 찾는걸 '힙(heap)'구조 사용
-# - 힙큐에 값을 넣을 때 첫번째 원소가 기분이기에 (가치, 물건)으로 설정
+# - 힙큐에 값을 넣을 때 첫번째 원소가 기분이기에 (가치, 노드)으로 설정
 
 import sys
 import heapq 
@@ -16,7 +16,7 @@ start = int(input())
 
 graph = [[] for i in range(n+1)]
 
-distance = [inf]*(n+1)
+distance = [inf]*(n+1) #다익스트라 테이블
 
 for _ in range(m):
     a, b, c = map(int, input().split())
@@ -25,11 +25,11 @@ for _ in range(m):
 def dijkstra(start):
     q = []
 
-    heapq.heappush(q, (0, start))
+    heapq.heappush(q, (0, start)) 
     distance[start] = 0
 
     while q:
-        dist, now = heapq.heappop(q)
+        dist, now = heapq.heappop(q) #(가치, 노드)
 
         if distance[now] < dist:
             continue
